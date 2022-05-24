@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD API</title>
+    <style>
+        .sa {
+            padding: 20px;
+            margin: 10px;
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+    <h1>CRUD API</h1>
+    <hr>
+    <div class="last_name">
+    <form method="post">
+        <p>
+            <b><label for="last_name">Saisie pour ajouter une entrée :</label></b>
+        </p>
+        <p>
+            <label>
+                <input type="text" name="last_name"
+                    placeholder="Saisir un nom">
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="text" name="first_name"
+                    placeholder="Saisir un prénom">
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="text" name="status"
+                    placeholder="Saisir un statut">
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="text" name="position_title"
+                    placeholder="Saisir un poste">
+            </label>
+        </p>
+        <p>
+            <input id="type-0" name="pay_basis" required type="radio" value="Per Annum">
+            <label for="type-0">Salaire annuel</label>
+        </p>
+        <p>
+            <input id="type-1" name="pay_basis" required type="radio" value="Per Diem">
+            <label for="type-1">Salaire journalier</label>
+        </p>
+        <p>
+            <label>
+                <input type="number" name="salary"
+                    placeholder="Saisir un salaire">
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="number" name="year"
+                    placeholder="Saisir une année">
+            </label>
+        </p>
+
+        <p>
+            <b><label for="gender">Genre</label></b>
+        </p>
+        <p>
+            <input id="gender-0" name="gender" required type="radio" value="Male">
+            <label for="gender-0">Homme</label>
+        </p>
+        <p>
+            <input id="gender-1" name="gender" required type="radio" value="Female">
+            <label for="gender-1">Femme</label>
+        </p>
+        <button type="submit">Envoyer</button>
+    </form>
+            <hr>
+    {% for sa in sal %}
+        <div class="sa">
+            <p>{{ sa['last_name'] }} {{ sa['first_name'] }}<i> ( {{ sa['gender']}} ) </i></p>
+            <p>{{ sa['position_title'] }}<i> ( {{ sa['status'] }} ) </i></p>
+            <p>{{ sa['salary'] }}$ <i> ({{ sa['pay_basis'] }}) </i> au cours de l'année {{ sa['year'] }}</p>
+                    <form method="POST" action="{{ url_for('delete', id=sa['_id']) }}" >
+                <input type="submit" value="Supprimer"
+                       onclick="return confirm('Êtes-vous certain de vouloir supprimer cette entrée ?')">
+            </form>
+        </div>
+    {% endfor %}
+    </div>
+</body>
+</html>
